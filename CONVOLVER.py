@@ -41,6 +41,8 @@ samples = int(input("How many samples do you want?\n")) # user input of number o
 
 c = FWHMtoC(FWHM) # converts user input FWHM into the standard dev
 
+NonC = 11452.3149/c # L^3 mol^-1 cm ^ -1 = Na * e ^2 * h / (4*m_e*c*epsilon_0*ln(10)*sqrt(2pi)) # conversion factor you times by f/c
+
 noex = int(np.shape(data)[0]/2) # calculates number of excitations (exactly half the number of data points...)
 
 if np.shape(data)[0]%2 != 0: # very basic checking procedure
@@ -53,7 +55,7 @@ spec[:,0] = np.linspace(emin,emax,samples) # create the linear space of energies
 spec[:,1] = eVtonm(spec[:,0]) # convert this into the wavelength
 
 for i in range(noex): # for all excitations, calculate a gaussian of height of the oscillator strength centred at the energy, and put into column n=4
-    spec[:,i+4] = gauss(spec[:,0],data[i+noex],data[i],c)
+    spec[:,i+4] = data[i+noex] * NonC * gauss(spec[:,0],data[i+noex],data[i],c)
 
 spec[:,3] = [np.sum(spec[i,4:]) for i in range(samples)] # sum over all the columns to get total spectrum
 
