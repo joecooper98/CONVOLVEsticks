@@ -36,6 +36,15 @@ p 'data' u 2:3 w l , \
 
 which will give you a spectrum in wavelength with both the stick and total spectrum. Changing the 2 for 1 will give you the eV spectrum.
 
+If you want to decompose the spectrum into individual absorptions, then simply run
+
+p 'data' u 2:5 w l , \
+  'data' u 2:6 w l , \
+  etc.
+  
+This will show the convolved sections of the specific absorptions, i.e. S_1, S_2 etc. It is up to you to work out what these actually mean.
+
+
 
 
 
